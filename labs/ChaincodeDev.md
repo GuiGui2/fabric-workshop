@@ -51,3 +51,45 @@ Using go env command, let's figure out what the value of this variable in order 
     /home/blockchain/gopath
 
 Our chaincode will have to go in a subdirectory of */home/blockchain/gopath*
+
+Section 3: Chaincode development
+================================
+
+**Step 1:** Create a directory of your choice in the ${GOPATH} folder, like so:
+
+    blockchain@blkchn32:~$ mkdir ${GOPATH}/chaincode
+
+**Step 2:** Move into that directory:
+
+    blockchain@blkchn32:~$ cd ${GOPATH}/chaincode
+
+**Step 3:** Create a chaincode skeleton by copy-pasting the following code into a file you name at your convenience.
+**Note:** There are a number of options available for editing files in Linux. Both vim and nano editors are provided in the machines. Should you prefer something else, do feel free to install another editor. Remote editing using tools like WinSCP for instance is also entirely possible.
+
+```golang
+package main
+
+import (
+	"fmt"
+	"github.com/hyperledger/fabric/core/chaincode/shim"
+	pb "github.com/hyperledger/fabric/protos/peer"
+)
+
+type HelloWorld struct {
+}
+
+func (t *HelloWorld) Init(stub shim.ChaincodeStubInterface) pb.Response {
+	return shim.Success(nil)
+}
+
+func (t *HelloWorld) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
+	return shim.Success(nil)
+}
+
+func main() {
+	err:= shim.Start(new(HelloWorld))
+	if err!= nil{
+	fmt.Printf("Error starting HelloWorld chaincode: %s", err)
+	}
+}
+```
