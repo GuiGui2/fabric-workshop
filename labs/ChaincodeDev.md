@@ -34,20 +34,20 @@ You will be greated with a message similar to this one::
 
 **Step 2:** Explore the environment to find out where the go binaries are installed::
 
- blockchain@blkchn32:~$ which go 
- /usr/lib/go-1.8/bin/go
+    blockchain@blkchn32:~$ which go 
+    /usr/lib/go-1.8/bin/go
 
 **Step 3:** Confirm what the exact version of the Go language installed on the machine::
 
- blockchain@blkchn32:~$ go version
- go version go1.8.1 linux/s390x
+    blockchain@blkchn32:~$ go version
+    go version go1.8.1 linux/s390x
 
 We have a Go version 1.8.1 version available for the s390x platform.
 
 **Step4:** Chaincodes need to be installed in a subdirectory of the ${GOPATH}/src directory.
 Using go env command, let's figure out what the value of this variable in order to identify where we need to locate our chaincode::
 
- blockchain@blkchn32:~$ go env GOPATH
- /home/blockchain/gopath
+    blockchain@blkchn32:~$ go env GOPATH
+    /home/blockchain/gopath
 
 Our chaincode will have to go in a subdirectory of */home/blockchain/gopath*
