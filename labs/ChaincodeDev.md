@@ -65,8 +65,6 @@ Section 3: Chaincode development
 
 **Step 3:** Create a chaincode skeleton by copy-pasting the following code into a file you name at your convenience.
 
-**Note:** There are a number of options available for editing files in Linux. Both vim and nano editors are provided in the machines. Should you prefer something else, do feel free to install another editor. Remote editing using tools like WinSCP for instance is also entirely possible.
-
 ```golang
 package main
 
@@ -94,3 +92,6 @@ func main() {
 	}
 }
 ```
+
+**Note:** There are a number of options available for editing files in Linux. Both vim and nano editors are provided in the machines. Should you prefer something else, do feel free to install another editor. Remote editing using tools like WinSCP for instance is also entirely possible.
+
