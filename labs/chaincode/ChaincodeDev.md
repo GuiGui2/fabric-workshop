@@ -299,9 +299,48 @@ Section 4: Chaincode development - step 2
 
 **Step 1:** Copy the template for step1 over to step2, as step2.go
 
-**Step 2:** Populate the Init function to store a key and its value into the ledger.
+    blockchain@blkchn30:~/gopath/src/chaincode/step2$ cp ../step1/step1.go step2.go
 
-**Step 3:** Install, instantiate and check to effect of the Init.
+**Step 2:** Let's modify our previous, functional yet useless, chaincode to store a vkey and its value in the ledger as part of the chaincode initialization process.
+Suggested if to use the PutState method to store a key of your choice, together with its value. These attributes will be passed to the Init function using the -c argument on the *peer chaincode instantiate* command. Make sure to add some logs and outputs.
+
+**Note:** Instructor provided example can be found in the go/step2 subfolder in this directory.
+
+**Step 3:** Install, instantiate and check to effect of the Init. The steps to follow are similar to steps 5 and 6 in the previous section. Using the instructor-provided example show the following output when instantiated:
+
+    root@2b839fc94578:/opt/gopath/src/github.com/hyperledger/fabric/peer# peer chaincode install -n step2 -v1.0 -p chaincode/step2
+    2017-10-23 11:32:12.085 UTC [msp] GetLocalMSP -> DEBU 001 Returning existing local MSP
+    2017-10-23 11:32:12.085 UTC [msp] GetDefaultSigningIdentity -> DEBU 002 Obtaining default signing identity
+    2017-10-23 11:32:12.085 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 003 Using default escc
+    2017-10-23 11:32:12.085 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 004 Using default vscc
+    2017-10-23 11:32:12.134 UTC [golang-platform] getCodeFromFS -> DEBU 005 getCodeFromFS chaincode/step2
+    2017-10-23 11:32:12.276 UTC [golang-platform] func1 -> DEBU 006 Discarding GOROOT package fmt
+    2017-10-23 11:32:12.276 UTC [golang-platform] func1 -> DEBU 007 Discarding provided package github.com/hyperledger/fabric/core/chaincode/shim
+    2017-10-23 11:32:12.276 UTC [golang-platform] func1 -> DEBU 008 Discarding provided package github.com/hyperledger/fabric/protos/peer
+    2017-10-23 11:32:12.276 UTC [golang-platform] GetDeploymentPayload -> DEBU 009 done
+    2017-10-23 11:32:12.279 UTC [msp/identity] Sign -> DEBU 00a Sign: plaintext: 0AE4070A5C08031A0C08BCA6B7CF0510...FF06DF030000FFFF9C34A79C000A0000 
+    2017-10-23 11:32:12.281 UTC [msp/identity] Sign -> DEBU 00b Sign: digest: A61A7AFE8329C44EB7FFF7DDD8EF2AF7E3FB1CD90C1EE2ECDB17A013B96D4DDB 
+    2017-10-23 11:32:12.286 UTC [chaincodeCmd] install -> DEBU 00c Installed remotely response:<status:200 payload:"OK" > 
+    2017-10-23 11:32:12.286 UTC [main] main -> INFO 00d Exiting.....
+
+    root@2b839fc94578:/opt/gopath/src/github.com/hyperledger/fabric/peer# peer chaincode instantiate -o orderer0:7050 -n step2 -v1.0 -C labchannel -c '{"Args":["Init"]}' -P "OR('BlockChainCoCMSP.member')"
+    2017-10-23 11:32:35.441 UTC [msp] GetLocalMSP -> DEBU 001 Returning existing local MSP
+    2017-10-23 11:32:35.441 UTC [msp] GetDefaultSigningIdentity -> DEBU 002 Obtaining default signing identity
+    2017-10-23 11:32:35.444 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 003 Using default escc
+    2017-10-23 11:32:35.444 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 004 Using default vscc
+    2017-10-23 11:32:35.445 UTC [msp/identity] Sign -> DEBU 005 Sign: plaintext: 0AF0070A6808031A0C08D3A6B7CF0510...434D53500A04657363630A0476736363 
+    2017-10-23 11:32:35.445 UTC [msp/identity] Sign -> DEBU 006 Sign: digest: 49DF6119C0D03C419980D7F5233DB9F5586ED3CFCF22690CCB39A1DF4C02FEBE 
+    2017-10-23 11:32:52.787 UTC [msp/identity] Sign -> DEBU 007 Sign: plaintext: 0AF0070A6808031A0C08D3A6B7CF0510...E8287D81FD1DF8DE61442EDED9B09218 
+    2017-10-23 11:32:52.787 UTC [msp/identity] Sign -> DEBU 008 Sign: digest: A0CA2D1FF152690F3D1BF1B558E47AFC457505F3128643B235459B7BDF44A35A 
+    2017-10-23 11:32:52.791 UTC [main] main -> INFO 009 Exiting.....
+
+**Step4:** Check the chaincode container logs to figure out what happened:
+
+    blockchain@blkchn30:~/gopath/src/chaincode/step2$ docker ps | grep step2
+    79f6458d4414        dev-peer0-step2-1.0-e1816cadb82738bfe84fef246feaac1ced6553b3ee106a7f4dc03f498fe9a6bb   "chaincode -peer.a..."   About a minute ago   Up About a minute                                                     dev-peer0-step2-1.0
+    blockchain@blkchn30:~/gopath/src/chaincode/step2$ docker logs 79f6458d4414
+    Initializing chaincode HelloWorld
+    blockchain@blkchn30:~/gopath/src/chaincode/step2$ 
 
 **Note:** You can use the CouchDB database to visualize the effect of the Init()ialization of the ledger.
 
