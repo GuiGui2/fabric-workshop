@@ -350,8 +350,33 @@ Section 5: Chaincode development - step 3
 **Step 1:** Copy the file step2/step2.go over to step3 as step3.go
 
 **Step 2:** Implement the query function which will be used to query the ledger.
+* Add a call to GetFunctionAndParameters at the top of the Invoke() function to retrieve the name of the function and the arguments it's been called with.
+* Add a switch case in the Invoke() function to call the "query" function when the name of the function called matches query.
+* Retrieve the value of the key specified as an argument.
+* Print that key in the output.
+
+**Note:** In the step3 subfolder is an example provided.
 
 **Step 3:** Install, instantiate and test the function works as expected.
+Using the example provided, the output is as follows:
+
+    root@2b839fc94578:/opt/gopath/src/github.com/hyperledger/fabric/peer# peer chaincode query -n step3 -C labchannel -c '{"Args":["query","Hello"]}'
+    2017-10-24 08:09:11.764 UTC [msp] GetLocalMSP -> DEBU 001 Returning existing local MSP
+    2017-10-24 08:09:11.764 UTC [msp] GetDefaultSigningIdentity -> DEBU 002 Obtaining default signing identity
+    2017-10-24 08:09:11.764 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 003 Using default escc
+    2017-10-24 08:09:11.764 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 004 Using default vscc
+    2017-10-24 08:09:11.765 UTC [msp/identity] Sign -> DEBU 005 Sign: plaintext: 0AF1070A6908031A0C08A7EABBCF0510...1A0E0A0571756572790A0548656C6C6F 
+    2017-10-24 08:09:11.765 UTC [msp/identity] Sign -> DEBU 006 Sign: digest: 0E470F66A32C412A526E9965895381D0F53C9985B741AE1E9655816C19C9F49B 
+    Query Result: World!
+    2017-10-24 08:09:11.788 UTC [main] main -> INFO 007 Exiting.....
+    root@2b839fc94578:/opt/gopath/src/github.com/hyperledger/fabric/peer# 
+
+**Step4:** Also check the output of the chaincode container, if you add any debug statements in there. Using the example provided, it looks as follows:
+
+    blockchain@blkchn30:~/gopath/src/chaincode/step3$ docker logs cc8a660db67e
+    Initializing chaincode HelloWorld
+    Invoking chaincode HelloWorld
+    Query Response:{"Name":"Hello","Amount":"World!"}
 
 Section 6: Chaincode development - step 4
 =========================================
