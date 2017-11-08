@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+  ca:
+    image: hyperledger/fabric-ca
+    container_name: ca0
+    ports:
+      - "7054:7054"
+    environment:
+      - FABRIC_CA_CLIENT_HOME=/etc/hyperledger/fabric-ca-server
+    volumes:
+      - "./ca:/etc/hyperledger/fabric-ca-server"
+    command: sh -c 'fabric-ca-server start -b admin:adminpw'
