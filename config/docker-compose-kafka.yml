@@ -493,7 +493,7 @@ services:
             - /var/run/:/host/var/run/
             - ./ca/BlockChainCoCMSP/admins/msp:/var/hyperledger/msp
             - ./channel-artifacts/kafka:/opt/gopath/src/github.com/hyperledger/fabric/config
-            - /home/blockchain/gopath/src/github.com/hyperledger/examples/chaincode/go:/opt/gopath/src/chaincode/go
+            - /home/blockchain/gopath/src/github.com/hyperledger/fabric/examples/chaincode/go:/opt/gopath/src/chaincode/go
         ports:
             - '9092'
         depends_on:
