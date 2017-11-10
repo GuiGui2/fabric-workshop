@@ -487,13 +487,13 @@ services:
             - CORE_PEER_LOCALMSPID=BlockChainCoCMSP
             - CORE_PEER_MSPCONFIGPATH=/var/hyperledger/msp
             - CORE_PEER_ADDRESS=peer0:7051
-        working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+        working_dir: /opt/gopath/src/github.com/hyperledger/fabric/config
         command: /bin/bash -c 'sleep 6000000000000000000'
         volumes:
             - /var/run/:/host/var/run/
             - ./ca/BlockChainCoCMSP/admins/msp:/var/hyperledger/msp
             - ./channel-artifacts/kafka:/opt/gopath/src/github.com/hyperledger/fabric/config
-            - /home/guigui/projects/wrk/chaincode:/opt/gopath/src/chaincode
+            - /home/blockchain/gopath/src/github.com/hyperledger/examples/chaincode/go:/opt/gopath/src/chaincode/go
         ports:
             - '9092'
         depends_on:
