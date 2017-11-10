@@ -131,7 +131,7 @@ services:
       - /var/run/:/host/var/run/
       - ./ca/BlockChainCoCMSP/admins/msp/:/var/hyperledger/msp
       - ./channel-artifacts/solo:/opt/gopath/src/github.com/hyperledger/fabric/config
-      - /home/blockchain/gopath/src/github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02/:/opt/gopath/src/chaincode/go
+      - /home/blockchain/gopath/src/github.com/hyperledger/fabric/examples/chaincode/go:/opt/gopath/src/chaincode/go
     ports:
       - '9092'
     depends_on:
