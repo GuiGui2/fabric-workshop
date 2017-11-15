@@ -535,11 +535,13 @@ Section 3: Clean up
  5288af292b09        dev-peer1.unitedmarbles.com-marbles-1.0   "chaincode -peer.addr"   2 hours ago         Exited (0) About a minute ago                       dev-peer1.unitedmarbles.com-marbles-1.0
  d3273df8f958        dev-peer0.marblesinc.com-marbles-1.0      "chaincode -peer.addr"   3 hours ago         Exited (0) About a minute ago                       dev-peer0.marblesinc.com-marbles-1.0
  5bf0f5846779        dev-peer0.unitedmarbles.com-marbles-1.0   "chaincode -peer.addr"   16 hours ago        Exited (0) About a minute ago                       dev-peer0.unitedmarbles.com-marbles-1.0
+
  blockchain@blkchn30:~/zmarbles$ docker rm $(docker ps -aq)
  5382b92f43dc
  5288af292b09
  d3273df8f958
  5bf0f5846779
+
  blockchain@blkchn30:~/zmarbles$ docker ps -a
  CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
  blockchain@blkchn30:~/zmarbles$
@@ -552,6 +554,7 @@ Section 3: Clean up
  dev-peer1.unitedmarbles.com-marbles-1.0   latest              aa60484e5ea1        2 hours ago         188 MB
  dev-peer0.marblesinc.com-marbles-1.0      latest              253bf7a48239        3 hours ago         188 MB
  dev-peer0.unitedmarbles.com-marbles-1.0   latest              7bb0d2122f1f        16 hours ago        188 MB
+
  blockchain@blkchn30:~/zmarbles$ docker rmi $(docker images -q dev-*)
  Untagged: dev-peer1.marblesinc.com-marbles-1.0:latest
  Deleted: sha256:e97e06db457f14212c1a7d4dbbd48bfc2c24e747c9507797f68f2c58edbc24c4
@@ -585,6 +588,7 @@ Section 3: Clean up
  Deleted: sha256:18a3fab4effe6fd8bf8c178a2828ea562f552fb3b89263a14c7ae75efe38c4d6
  Deleted: sha256:b61958b873b299dda8a8028ab33b69cce1ee5b50845ce926e5fac25c2a188e5f
  Deleted: sha256:088dae2d71f92ef089161c82c629deb05d50e7cc7b97585fe0dd3e6a1a30d42d
+
  blockchain@blkchn30:~/zmarbles$ docker images dev-*
  REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
  blockchain@blkchn30:~/zmarbles$
