@@ -358,7 +358,7 @@ the hook when you tell her that nowhere was JavaScript mentioned on the agenda.
 Captain Obvious says to plug in your IP address instead of *<your_IP_goes_here>*. Listen to him. You should see a screen that looks 
 like this:
 
-.. image:: images/lab3/UnitedMarblesSignin.png
+.. image:: images/UnitedMarblesSignin.png
     
 Notice that you are greeted at the top as a “United Marbles admin”.  Smart money says that this line in *marble1.json* has something to 
 do with it (you may need to open a new PuTTY session and switch to the directory shown in the command below if you want to run this)::
@@ -374,12 +374,12 @@ do, because if you are on the happy path, it will update automatically for you. 
 did. If all is well, you will see the message that I have highlighted in the yellow box.  Follow the instructions I have provided in 
 the blue arrow:
  
-.. image:: images/lab3/UnitedMarblesSetupComplete.png
+.. image:: images/UnitedMarblesSetupComplete.png
     
 **Step 5:** Click the *Close* button already! Ok, that was a bit harsh.  I’ll switch to decaf.  But in the interim, you should see a 
 screen like this:
  
-.. image:: images/lab3/UnitedMarblesMainPage.png
+.. image:: images/UnitedMarblesMainPage.png
     
 You can see the userids that you specified in your *marbles1.json* file.  I have Amy, Vincent, and Ava listed, because I changed 
 Alice to Vincent earlier in the lab.  You might have different names if you changed them.  But where did Barry come from? 
@@ -461,7 +461,7 @@ greeted as a “Marbles Inc admin”.  Scroll down and click *Login*.  It should
 did for United Marbles.  While this is taking place, go back to your United Marbles tab or window.  You should observe, after a little 
 while, new users showing up for Marbles Inc-  Cliff, Cody, and Chuck, or whomever you may have changed them to:
  
-.. image:: images/lab3/UnitedMarblesUpdatedPage.png
+.. image:: images/UnitedMarblesUpdatedPage.png
     
 Remember, you are looking at the United Marbles session but you see all the new users and marbles created by the Marbles Inc 
 administrator
@@ -469,7 +469,7 @@ administrator
 **Step 9:** Please click *Close* back on the Marbles Inc screen when you are ready (the decaf is working) and your Marbles Inc screen 
 will have their peeps at the top of the screen and the “others” (United Marbles) at the bottom, e.g.:
  
-.. image:: images/lab3/MarblesIncUpdatedPage.png
+.. image:: images/MarblesIncUpdatedPage.png
      
 **Step 10:**  Play with your marbles!!  Here are some things you can do.  When you do things as one user, e.g. as the United Marbles 
 admin, go to the other user’s screen to see that the changes one organization makes are visible to the other organization:
