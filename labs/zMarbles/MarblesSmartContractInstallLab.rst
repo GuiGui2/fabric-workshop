@@ -43,26 +43,26 @@ Section 3 -	Extract the artifacts necessary to run the lab
 **Step 1:**	Navigate to the home directory by entering *cd ~* (the “tilde” character, i.e., ‘*~*’, represents the user’s home directory in Linux).  
 This directory is also usually set in the $HOME environment variable, so *cd $HOME* will also usually get you to your home directory.  
 E.g., observe the following commands which illustrate this::
- bcuser@ubuntu-bc:~$ cd /usr/lib
- bcuser@ubuntu-bc:/usr/lib$ # starting in some random dir
- bcuser@ubuntu-bc:/usr/lib$ # bash interprets '#' as starting a comment
- bcuser@ubuntu-bc:/usr/lib$ pwd # prints the current directory you are in
+ blockchain@blkchn30:~$ cd /usr/lib
+ blockchain@blkchn30:/usr/lib$ # starting in some random dir
+ blockchain@blkchn30:/usr/lib$ # bash interprets '#' as starting a comment
+ blockchain@blkchn30:/usr/lib$ pwd # prints the current directory you are in
  /usr/lib
- bcuser@ubuntu-bc:/usr/lib$ cd ~ # will take you to your home directory
- bcuser@ubuntu-bc:~$ pwd
- /home/bcuser
- bcuser@ubuntu-bc:~$ cd - # takes you back to the previous directory 
+ blockchain@blkchn30:/usr/lib$ cd ~ # will take you to your home directory
+ blockchain@blkchn30:~$ pwd
+ /home/blockchain
+ blockchain@blkchn30:~$ cd - # takes you back to the previous directory 
  /usr/lib
- bcuser@ubuntu-bc:/usr/lib$ echo $HOME # print your HOME environment variable
- /home/bcuser
- bcuser@ubuntu-bc:/usr/lib$ cd $HOME # will be the same as cd ~
- bcuser@ubuntu-bc:~$ pwd
- /home/bcuser
- bcuser@ubuntu-bc:~$
+ blockchain@blkchn30:/usr/lib$ echo $HOME # print your HOME environment variable
+ /home/blockchain
+ blockchain@blkchn30:/usr/lib$ cd $HOME # will be the same as cd ~
+ blockchain@blkchn30:~$ pwd
+ /home/blockchain
+ blockchain@blkchn30:~$
  
 **Step 2:** Retrieve the zmarbles compressed tarball prepared for this lab with the following command::
 
- bcuser@ubuntu16042:~$ wget https://github.com/GuiGui2/fabric-workshop/raw/master/labs/zMarbles/zmarbles.tar.gz
+ blockchain@blkchn30:~$ wget https://github.com/GuiGui2/fabric-workshop/raw/master/labs/zMarbles/zmarbles.tar.gz
  --2017-10-02 08:40:14--  https://raw.githubusercontent.com/GuiGui2/fabric-workshop/master/zmarbles.tar.gz
  Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 151.101.200.133
  Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|151.101.200.133|:443... connected.
@@ -76,7 +76,7 @@ E.g., observe the following commands which illustrate this::
  
 **Step 3:**	List the *zmarbles* directory with this *ls* command::
 
- bcuser@ubuntu-bc:~$ ls zmarbles     
+ blockchain@blkchn30:~$ ls zmarbles     
  ls: cannot access 'zmarbles': No such file or directory
  
 Don’t panic!  It wasn’t supposed to be there.  It will be after the next step.
@@ -86,11 +86,11 @@ If you are not giddy yet, try tucking the “*v*” switch into the options in t
 So, enter the commands highlighted below as shown, or by substituting *-xzvf* for *-xzf* in the tar command (the “*v*” is for “*verbose*”)
 ::
 
- bcuser@ubuntu16042:~$ tar -xzf zmarbles.tar.gz 
- bcuser@ubuntu16042:~$ ls zmarbles
+ blockchain@blkchn30:~$ tar -xzf zmarbles.tar.gz 
+ blockchain@blkchn30:~$ ls zmarbles
  base               configtx.yaml       docker-compose-template.yaml  generateArtifacts.sh  network_setup.sh
  channel-artifacts  crypto-config.yaml  examples                      marblesUI             scripts
- bcuser@ubuntu16042:~$
+ blockchain@blkchn30:~$
 
 Congratulations!  You are now ready to get to the hard part of the lab!  Proceed to the next section please.  
  
@@ -99,19 +99,19 @@ Section 4	- Bring up the twelve Docker containers that comprise the Hyperledger 
 
 **Step 1:**	Change to the *zmarbles* directory with the *cd* command and then list its contents with the *ls* command::
 
- bcuser@ubuntu16042:~$ cd zmarbles/ 
- bcuser@ubuntu16042:~/zmarbles$ ls -l
+ blockchain@blkchn30:~$ cd zmarbles/ 
+ blockchain@blkchn30:~/zmarbles$ ls -l
  total 48
- drwxr-xr-x  2 bcuser bcuser 4096 Jul 12 21:10 base
- drwxr-xr-x  2 bcuser bcuser 4096 Jul 13 11:28 channel-artifacts
- -rw-r--r--  1 bcuser bcuser 5017 Jun 18 12:38 configtx.yaml
- -rw-r--r--  1 bcuser bcuser 3861 Jun 18 12:40 crypto-config.yaml
- -rw-rw-r--  1 bcuser bcuser 5996 Jul 13 11:23 docker-compose-template.yaml
- drwxr-xr-x  3 bcuser bcuser 4096 Jun 18 12:32 examples
- -rwxr-xr-x  1 bcuser bcuser 3611 Jun 18 16:49 generateArtifacts.sh
- drwxr-xr-x 12 bcuser bcuser 4096 Jul 13 11:32 marblesUI
- -rwxr-xr-x  1 bcuser bcuser 2504 Jun 18 12:54 network_setup.sh
- drwxr-xr-x  2 bcuser bcuser 4096 Jul 12 19:05 scripts bcuser@ubuntu16042:~/zmarbles$
+ drwxr-xr-x  2 blockchain blockchain 4096 Jul 12 21:10 base
+ drwxr-xr-x  2 blockchain blockchain 4096 Jul 13 11:28 channel-artifacts
+ -rw-r--r--  1 blockchain blockchain 5017 Jun 18 12:38 configtx.yaml
+ -rw-r--r--  1 blockchain blockchain 3861 Jun 18 12:40 crypto-config.yaml
+ -rw-rw-r--  1 blockchain blockchain 5996 Jul 13 11:23 docker-compose-template.yaml
+ drwxr-xr-x  3 blockchain blockchain 4096 Jun 18 12:32 examples
+ -rwxr-xr-x  1 blockchain blockchain 3611 Jun 18 16:49 generateArtifacts.sh
+ drwxr-xr-x 12 blockchain blockchain 4096 Jul 13 11:32 marblesUI
+ -rwxr-xr-x  1 blockchain blockchain 2504 Jun 18 12:54 network_setup.sh
+ drwxr-xr-x  2 blockchain blockchain 4096 Jul 12 19:05 scripts blockchain@blkchn30:~/zmarbles$
  
 **Step 2:**	You are going to run a script named *generateArtifacts.sh* that will create some configuration information that is 
 necessary to get your Hyperledger Fabric network set up.  There is one optional parameter you may pass to the script, and that is the 
@@ -134,10 +134,10 @@ So, if you see me place comments after any commands you do not have to enter the
 
 Here is output from entering the first command,  which does not specify the channel name and thus accepts the default name of *mychannel*::
 
- bcuser@ubuntu-bc:~/zmarbles$ ./generateArtifacts.sh  # not all output is shown below
+ blockchain@blkchn30:~/zmarbles$ ./generateArtifacts.sh  # not all output is shown below
  mychannel
  
- Using cryptogen -> /home/bcuser/git/src/github.com/hyperledger/fabric/release/linux-s390x/bin/cryptogen 
+ Using cryptogen -> /home/blockchain/git/src/github.com/hyperledger/fabric/release/linux-s390x/bin/cryptogen 
 
  ########################################################## 
  ##### Generate certificates using cryptogen tool #########
@@ -145,7 +145,7 @@ Here is output from entering the first command,  which does not specify the chan
  unitedmarbles.com
  marblesinc.com
  
- Using configtxgen -> /home/bcuser/git/src/github.com/hyperledger/fabric/release/linux-s390x/bin/configtxgen
+ Using configtxgen -> /home/blockchain/git/src/github.com/hyperledger/fabric/release/linux-s390x/bin/configtxgen
  ##########################################################
  #########  Generating Orderer Genesis block ##############
  ##########################################################
@@ -192,7 +192,7 @@ via **peer channel create** commands.
 
 **Step 3:**	Issue the following command which will show you all files that have been modified in the last 15 minutes::
 
- bcuser@ubuntu-bc:~/zmarbles$ find . -name '*' -mmin -15
+ blockchain@blkchn30:~/zmarbles$ find . -name '*' -mmin -15
  ./docker-compose.yaml
   .
   .  # lots of cryptographic material in crypto-config/
@@ -319,7 +319,7 @@ have had enough.
 
 **Step 5:**	Start the Hyperledger Fabric network by entering the command shown below::
 
- bcuser@ubuntu16042:~/zmarbles$ docker-compose up -d
+ blockchain@blkchn30:~/zmarbles$ docker-compose up -d
  Creating network "zmarbles_default" with the default driver
  Creating couchdb0 ... 
  Creating couchdb1 ... 
@@ -352,7 +352,7 @@ wrong, and you should check with an instructor for help if you see any of them i
 If, however, all twelve of your Docker containers are in *Up* status, as in the output below, you are ready to proceed to the next 
 section::
 
- bcuser@ubuntu-bc:~/zmarbles$ docker ps -a
+ blockchain@blkchn30:~/zmarbles$ docker ps -a
  CONTAINER ID        IMAGE                        COMMAND                  CREATED             STATUS              PORTS                                              NAMES
  fbe81505b8a2        hyperledger/fabric-tools     "/bin/bash"              3 minutes ago       Up 3 minutes                                                           cli
  2117492e94aa        hyperledger/fabric-peer      "peer node start"        3 minutes ago       Up 3 minutes        0.0.0.0:8051->7051/tcp, 0.0.0.0:8053->7053/tcp     peer1.unitedmarbles.com
@@ -387,7 +387,7 @@ business problem being solved.
 
 **Step 1:**	Access the *cli* Docker container::
 
- bcuser@ubuntu-bc:~/zmarbles$ docker exec -it cli bash
+ blockchain@blkchn30:~/zmarbles$ docker exec -it cli bash
  root@fbe81505b8a2:/opt/gopath/src/github.com/hyperledger/fabric/peer#
 
 Observe that your command prompt changes when you enter the Docker container’s shell.
@@ -398,7 +398,7 @@ The *docker exec* command runs a command against an existing Docker container.  
 enter.   In other words, you are entering a Bash shell within the *cli* Docker container.  For most of the rest of the lab, you will be 
 entering commands within this Bash shell.
 
-Instead of working as user *bcuser* on the ubuntu-bc server in the *~/zmarbles* directory, you are now inside the Docker container with 
+Instead of working as user *blockchain* on the blkchn30 server in the *~/zmarbles* directory, you are now inside the Docker container with 
 ID *fbe81505b8a2* (your ID will differ), working in the */opt/gopath/src/github.com/hyperledger/fabric/peer* directory.  It is no 
 coincidence that that directory is the value of the *working_dir* statement for the *cli* service in your *docker-compose.yaml* file.
 
@@ -834,10 +834,10 @@ does not object to being objectified.
 the instantiate, a Docker image for the chaincode is created and then a Docker container is started from the image.  To prove this to 
 yourself, on PuTTY Session 2, enter *docker images dev-** and *docker ps | grep -v hyperledger* ::
 
- bcuser@ubuntu16042:~$ docker images dev-* 
+ blockchain@blkchn30:~$ docker images dev-* 
  REPOSITORY                                TAG                 IMAGE ID            CREATED             SIZE
  dev-peer0.unitedmarbles.com-marbles-1.0   latest              e248dfa62e87        28 seconds ago      188 MB
- bcuser@ubuntu16042:~$ docker ps | grep -v hyperledger 
+ blockchain@blkchn30:~$ docker ps | grep -v hyperledger 
  CONTAINER ID        IMAGE                                     COMMAND                  CREATED             STATUS              PORTS                                              NAMES
  83cc13063a08        dev-peer0.unitedmarbles.com-marbles-1.0   "chaincode -peer.addr"   43 seconds ago      Up 41 seconds                                                          dev-peer0.unitedmarbles.com-marbles-1.0
 
@@ -903,10 +903,10 @@ for ledger state to be created or updated.
 **Step 4:**	Go to PuTTY session 2, and enter these two Docker commands and you will observe that you only have a Docker image and a 
 Docker container for peer0 of Org0::
 
- bcuser@ubuntu16042:~/zmarbles$ docker images dev-*
+ blockchain@blkchn30:~/zmarbles$ docker images dev-*
  REPOSITORY                                TAG                 IMAGE ID            CREATED             SIZE
  dev-peer0.unitedmarbles.com-marbles-1.0   latest              e248dfa62e87        35 minutes ago      188 MB
- bcuser@ubuntu16042:~/zmarbles$ docker ps --no-trunc | grep dev-
+ blockchain@blkchn30:~/zmarbles$ docker ps --no-trunc | grep dev-
  83cc13063a08c37cd36f43687f54592c4a4dde9a51335f4343bb6adb2017bb5e   dev-peer0.unitedmarbles.com-marbles-1.0   "chaincode -peer.address=peer0.unitedmarbles.com:7051"                                                                                                                                                                                                                36 minutes ago      Up 36 minutes                                                          dev-peer0.unitedmarbles.com-marbles-1.0
 
 The takeaway is that the chaincode execution has only run on peer0 of Org0 so far, and this is also the peer on which you instantiated 
@@ -934,11 +934,11 @@ decided that the letter ‘*o*’ stands for owner and the letter ‘*m*’ stan
 **Step 6:**	In PuTTY session 2, repeat the Docker commands from step 4.  Now you should see that you have two Docker images and two 
 Docker containers::
 
- bcuser@ubuntu16042:~/zmarbles$ docker images dev-*
+ blockchain@blkchn30:~/zmarbles$ docker images dev-*
  REPOSITORY                                TAG                 IMAGE ID            CREATED             SIZE
  dev-peer0.marblesinc.com-marbles-1.0      latest              10ec1ebd6d0b        9 minutes ago       188 MB
  dev-peer0.unitedmarbles.com-marbles-1.0   latest              30d3f553d454        10 minutes ago      188 MB
- bcuser@ubuntu16042:~/zmarbles$ docker ps --no-trunc | grep dev-
+ blockchain@blkchn30:~/zmarbles$ docker ps --no-trunc | grep dev-
  7dc36ab249021c6af44a714a0809d62f1ef30af370181c375d3bae42d6000612   dev-peer0.marblesinc.com-marbles-1.0      "chaincode -peer.address=peer0.marblesinc.com:7051"                                                                                                                                                                                                                   9 minutes ago       Up 9 minutes                                                           dev-peer0.marblesinc.com-marbles-1.0
  4d0b5c9a18a9864d35304fced94f8235483ed7ea5209674a425253a13100137a   dev-peer0.unitedmarbles.com-marbles-1.0   "chaincode -peer.address=peer0.unitedmarbles.com:7051"                                                                                                                                                                                                                10 minutes ago      Up 10 minutes                                                          dev-peer0.unitedmarbles.com-marbles-1.0
 
@@ -980,12 +980,12 @@ it and assure yourself that this command succeeded.
 **Step 10:**	Go back to PuTTY session 2 and enter the Docker commands that will show you that you now have your third pair in your 
 set of chaincode-related Docker images and containers, the ones just built for peer1 of Org0::
 
- bcuser@ubuntu16042:~/zmarbles$ docker images dev-*
+ blockchain@blkchn30:~/zmarbles$ docker images dev-*
  REPOSITORY                                TAG                 IMAGE ID            CREATED              SIZE
  dev-peer1.unitedmarbles.com-marbles-1.0   latest              e618fe234503        About a minute ago   188 MB
  dev-peer0.marblesinc.com-marbles-1.0      latest              10ec1ebd6d0b        32 minutes ago       188 MB
  dev-peer0.unitedmarbles.com-marbles-1.0   latest              30d3f553d454        33 minutes ago       188 MB
- bcuser@ubuntu16042:~/zmarbles$ docker ps --no-trunc | grep dev-          
+ blockchain@blkchn30:~/zmarbles$ docker ps --no-trunc | grep dev-          
  dce42a9113afe6607e1f99ec236e04208b792d7a86ba2d67f04e70e4ef48a729   dev-peer1.unitedmarbles.com-marbles-1.0   "chaincode -peer.address=peer1.unitedmarbles.com:7051"                                                                                                                                                                                                                About a minute ago   Up About a minute                                                      dev-peer1.unitedmarbles.com-marbles-1.0
  7dc36ab249021c6af44a714a0809d62f1ef30af370181c375d3bae42d6000612   dev-peer0.marblesinc.com-marbles-1.0      "chaincode -peer.address=peer0.marblesinc.com:7051"                                                                                                                                                                                                                   33 minutes ago       Up 33 minutes                                                          dev-peer0.marblesinc.com-marbles-1.0
  4d0b5c9a18a9864d35304fced94f8235483ed7ea5209674a425253a13100137a   dev-peer0.unitedmarbles.com-marbles-1.0   "chaincode -peer.address=peer0.unitedmarbles.com:7051"                                                                                                                                                                                                                34 minutes ago       Up 34 minutes                                                          dev-peer0.unitedmarbles.com-marbles-1.0
@@ -1039,7 +1039,7 @@ back at your Linux on z Systems host prompt and no longer in the Docker containe
 
  root@f97fefdbf4ff:/opt/gopath/src/github.com/hyperledger/fabric/peer# exit
  exit
- bcuser@ubuntu16042:~/zmarbles$
+ blockchain@blkchn30:~/zmarbles$
 
 **Step 13:**	Congratulations!! Congratulations on your fortitude and perseverance.  Leave your Hyperledger Fabric network and all 
 the chaincode Docker containers up and running-  you will use what you created here in the next lab where you will install a 
