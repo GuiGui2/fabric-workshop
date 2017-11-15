@@ -16,50 +16,50 @@ Section 2: Marbles user interface setup
 
 **Step 1:** Switch to the *~/zmarbles/marblesUI* directory::
 
- bcuser@ubuntu-bc:~$ cd ~/zmarbles/marblesUI
- bcuser@ubuntu-bc:~/zmarbles/marblesUI$
+ blockchain@blkchn30:~$ cd ~/zmarbles/marblesUI
+ blockchain@blkchn30:~/zmarbles/marblesUI$
 
 **Step 2:** You will need to do an *npm install* to install the packages needed by the Marbles user interface.  First issue this 
 command which will confirm that the *node_modules* directory does not exist.  This directory is created when you run an npm *install*::
 
- bcuser@ubuntu-bc:~/zmarbles/marblesUI$ ls -l node_modules
+ blockchain@blkchn30:~/zmarbles/marblesUI$ ls -l node_modules
  ls: cannot access 'node_modules': No such file or directory
 
 **Step 3:** Now run the *npm install*::
 
- bcuser@ubuntu-bc:~/zmarbles/marblesUI$ npm install
+ blockchain@blkchn30:~/zmarbles/marblesUI$ npm install
    .
    .  (output not shown here)
    .
 
 **Step 4:** When this command ends, list the *node_modules* directory again. It is there now::
 
- bcuser@ubuntu-bc:~/zmarbles/marblesUI$ ls -l node_modules
+ blockchain@blkchn30:~/zmarbles/marblesUI$ ls -l node_modules
    .
    .  (output not shown here)
    .
 
 **Step 5:** How much ‘there’ is there?  Run this command if you are curious.  I hope you are a speed reader::
  
- bcuser@ubuntu-bc:~/zmarbles/marblesUI$ ls -ltrR node_modules/
+ blockchain@blkchn30:~/zmarbles/marblesUI$ ls -ltrR node_modules/
    .
    .  (output not shown here)
    .
 
 **Step 6:** Change to the *config* directory::
 
- bcuser@ubuntu-bc:~/zmarbles/marblesUI$ cd config
- bcuser@ubuntu-bc:~/zmarbles/marblesUI/config$
+ blockchain@blkchn30:~/zmarbles/marblesUI$ cd config
+ blockchain@blkchn30:~/zmarbles/marblesUI/config$
 
 **Step 7:** There are four files in this directory::
 
- bcuser@ubuntu-bc:~/zmarbles/marblesUI/config$ ls
+ blockchain@blkchn30:~/zmarbles/marblesUI/config$ ls
  blockchain_creds1.json  blockchain_creds2.json  marbles1.json  marbles2.json
 
 **Step 8:** There are two files for the first fictitious company, *United Marbles*, and two files for the second fictitious 
 company, *Marbles Inc.*  Look this file with the cat command::
 
- bcuser@ubuntu-bc:~/zmarbles/marblesUI/config$ cat marbles1.json 
+ blockchain@blkchn30:~/zmarbles/marblesUI/config$ cat marbles1.json 
  {
      "cred_filename": "blockchain_creds1.json",
      "use_events": false,
@@ -81,12 +81,12 @@ you would like.  You can also use the *sed* command to change the name inline wi
 to change the name *alice* to *vincent*.  **This step is optional- you do not have to do this is you prefer the name alice to 
 vincent**::
 
- bcuser@ubuntu-bc:~/zmarbles/marblesUI/config$ sed -i "s/alice/vincent/" marbles1.json   # optional
- bcuser@ubuntu-bc:~/zmarbles/marblesUI/config$
+ blockchain@blkchn30:~/zmarbles/marblesUI/config$ sed -i "s/alice/vincent/" marbles1.json   # optional
+ blockchain@blkchn30:~/zmarbles/marblesUI/config$
 
 **Step 10:** Here is the file after I changed *alice* to *vincent* with the previous sed command::
 
- bcuser@ubuntu-bc:~/zmarbles/marblesUI/config$ cat marbles1.json 
+ blockchain@blkchn30:~/zmarbles/marblesUI/config$ cat marbles1.json 
  {
      "cred_filename": "blockchain_creds1.json",
      "use_events": false,
@@ -111,7 +111,7 @@ indicate that security credentials are specified in this file, and they are, but
 network itself is specified in this file as well. This file is too large to fit in one screen, so I will teach you one more 
 Linux command, named *more*.  (Pun intended).  Type this::
 
- bcuser@ubuntu-bc:~/zmarbles/marblesUI/config$ more blockchain_creds1.json
+ blockchain@blkchn30:~/zmarbles/marblesUI/config$ more blockchain_creds1.json
 
 This command will print as much of the file as it can on your screen but will pause until you hit enter before displaying the rest of 
 the file’s contents.  I will go over the sections in this file- hit enter as my explanations go past what you currently see visible 
@@ -198,11 +198,11 @@ used.** Either use the *vi* editor if you are comfortable with that, or, you cou
 to change the channel name from *mychannel* to *tim*, along with “before” and “after” *grep* commands to show the changes
 (These commands are examples and only needed if you did not use the default channel name of mychannel)::
 
- bcuser@ubuntu-bc:~/zmarbles/marblesUI/config$ grep mychannel blockchain_creds[12].json 
+ blockchain@blkchn30:~/zmarbles/marblesUI/config$ grep mychannel blockchain_creds[12].json 
  blockchain_creds1.json:            "channel_id": "mychannel",
  blockchain_creds2.json:            "channel_id": "mychannel", 
- bcuser@ubuntu-bc:~/zmarbles/marblesUI/config$ sed -i "s/mychannel/tim/" blockchain_creds[12].json 
- bcuser@ubuntu-bc:~/zmarbles/marblesUI/config$ grep channel_id blockchain_creds[12].json 
+ blockchain@blkchn30:~/zmarbles/marblesUI/config$ sed -i "s/mychannel/tim/" blockchain_creds[12].json 
+ blockchain@blkchn30:~/zmarbles/marblesUI/config$ grep channel_id blockchain_creds[12].json 
  blockchain_creds1.json:            "channel_id": "tim",
  blockchain_creds2.json:            "channel_id": "tim",
 
@@ -235,7 +235,7 @@ differences between *blockchain_creds1.json* and *blockchain_creds2.json*, try t
 lists sections of the two files that it finds different.  The lines from the first file, *blockchain_creds1.json*, start with ‘<’ 
 (added by the diff command output, not in the actual file), and the lines from the second file, *blockchain_creds2.json*, start with ‘>’::
 
- bcuser@ubuntu-bc:~/zmarbles/marblesUI/config$ diff blockchain_creds1.json blockchain_creds2.json 
+ blockchain@blkchn30:~/zmarbles/marblesUI/config$ diff blockchain_creds1.json blockchain_creds2.json 
  13,14c13,14
  <                 "api": "https://localhost:7054",
  <                 "msp_id": "Org0MSP",
@@ -283,12 +283,12 @@ service provider-  think “Blockchain-as-a-service”.  The chosen topology is 
 
 **Step 1:** You are now ready to start the server for UnitedMarbles.  Back up to the *~/zmarbles/marblesUI* directory::
 
- bcuser@ubuntu-bc:~/zmarbles/marblesUI/config$ cd ..
- bcuser@ubuntu-bc:~/zmarbles/marblesUI$
+ blockchain@blkchn30:~/zmarbles/marblesUI/config$ cd ..
+ blockchain@blkchn30:~/zmarbles/marblesUI$
 
 **Step 2:** You will now use *gulp* to start up the server, with this command::
 
- bcuser@ubuntu-bc:~/zmarbles/marblesUI$ gulp marbles1
+ blockchain@blkchn30:~/zmarbles/marblesUI$ gulp marbles1
  [13:06:55] Using gulpfile ~/zmarbles/marblesUI/gulpfile.js
  [13:06:55] Starting 'start_marbles1'...
  
@@ -302,15 +302,15 @@ service provider-  think “Blockchain-as-a-service”.  The chosen topology is 
  [13:06:55] Starting 'watch-server'...
  [13:06:55] Finished 'watch-server' after 3.64 ms
  [13:06:55] Starting 'server'...
- info: Loaded config file /home/bcuser/zmarbles/marblesUI/config/marbles1.json
- info: Loaded creds file /home/bcuser/zmarbles/marblesUI/config/blockchain_creds1.json
+ info: Loaded config file /home/blockchain/zmarbles/marblesUI/config/marbles1.json
+ info: Loaded creds file /home/blockchain/zmarbles/marblesUI/config/blockchain_creds1.json
  info: Returning a new winston logger with default configurations
- info: Loaded config file /home/bcuser/zmarbles/marblesUI/config/marbles1.json
- info: Loaded creds file /home/bcuser/zmarbles/marblesUI/config/blockchain_creds1.json
+ info: Loaded config file /home/blockchain/zmarbles/marblesUI/config/marbles1.json
+ info: Loaded creds file /home/blockchain/zmarbles/marblesUI/config/blockchain_creds1.json
  debug: cache busting hash js 1497373615994 css 1497373615994
  ------------------------------------------ Server Up - localhost:3001 ------------------------------------------
  ------------------------------------------ Websocket Up ------------------------------------------
- warn: "last_startup_hash" not found in config json: /home/bcuser/zmarbles/marblesUI/config/marbles1.json 
+ warn: "last_startup_hash" not found in config json: /home/blockchain/zmarbles/marblesUI/config/marbles1.json 
 
  debug: Detected that we have NOT launched successfully yet
  debug: Open your browser to http://localhost:3001 and login as "admin" to initiate startup
@@ -363,7 +363,7 @@ like this:
 Notice that you are greeted at the top as a “United Marbles admin”.  Smart money says that this line in *marble1.json* has something to 
 do with it (you may need to open a new PuTTY session and switch to the directory shown in the command below if you want to run this)::
 
- bcuser@ubuntu-bc:~/zmarbles/marblesUI/config$ grep company marbles1.json 
+ blockchain@blkchn30:~/zmarbles/marblesUI/config$ grep company marbles1.json 
      "company": "United Marbles",
 
 I have drawn an arrow to the Login button.  
@@ -410,7 +410,7 @@ of the channel, so United Marbles and Marbles Inc both see the same chain-  they
 But the user names specified in *config/marbles2.json* are not created until you start the server for *marbles2* and log in the first
 time.  List the contents of *marbles2.json* file, e.g.::
 
- bcuser@ubuntu-bc:~/zmarbles/marblesUI$ cat config/marbles2.json 
+ blockchain@blkchn30:~/zmarbles/marblesUI$ cat config/marbles2.json 
  {
      "cred_filename": "blockchain_creds2.json",
      "use_events": false,
@@ -427,7 +427,7 @@ time.  List the contents of *marbles2.json* file, e.g.::
 
 **Step 7:** In a new SSH session, navigate to *~/zmarbles/marblesUI* and then start the second server, the one for Marbles Inc::
 
- bcuser@ubuntu-bc:~/zmarbles/marblesUI$ gulp marbles2
+ blockchain@blkchn30:~/zmarbles/marblesUI$ gulp marbles2
  [16:22:07] Using gulpfile ~/zmarbles/marblesUI/gulpfile.js
  [16:22:07] Starting 'start_marbles2'...  
 
@@ -441,15 +441,15 @@ time.  List the contents of *marbles2.json* file, e.g.::
  [16:22:07] Starting 'watch-server'...
  [16:22:07] Finished 'watch-server' after 5.6 ms
  [16:22:07] Starting 'server'...
- info: Loaded config file /home/bcuser/zmarbles/marblesUI/config/marbles2.json
- info: Loaded creds file /home/bcuser/zmarbles/marblesUI/config/blockchain_creds2.json
+ info: Loaded config file /home/blockchain/zmarbles/marblesUI/config/marbles2.json
+ info: Loaded creds file /home/blockchain/zmarbles/marblesUI/config/blockchain_creds2.json
  info: Returning a new winston logger with default configurations
- info: Loaded config file /home/bcuser/zmarblesUI/marbles/config/marbles2.json
- info: Loaded creds file /home/bcuser/zmarblesUI/marbles/config/blockchain_creds2.json
+ info: Loaded config file /home/blockchain/zmarblesUI/marbles/config/marbles2.json
+ info: Loaded creds file /home/blockchain/zmarblesUI/marbles/config/blockchain_creds2.json
  debug: cache busting hash js 1497385328473 css 1497385328473
  ------------------------------------------ Server Up - localhost:3002 ------------------------------------------
  ------------------------------------------ Websocket Up ------------------------------------------
- warn: "last_startup_hash" not found in config json: /home/bcuser/zmarbles/marblesUI/config/marbles2.json
+ warn: "last_startup_hash" not found in config json: /home/blockchain/zmarbles/marblesUI/config/marbles2.json
 
  debug: Detected that we have NOT launched successfully yet   
  debug: Open your browser to http://localhost:3002 and login as "admin" to initiate startup
@@ -495,12 +495,12 @@ Section 3: Clean up
 **Step 1:** In each of the SSH sessions where you started the UI application (via gulp marblesx) enter **Ctrl-c** to end each session.
 **Step 2:** Navigate to *~/zmarbles*::
 
- bcuser@ubuntu-bc:~/zmarbles/marblesUI$ cd ~/zmarbles
- bcuser@ubuntu-bc:~/zmarbles$
+ blockchain@blkchn30:~/zmarbles/marblesUI$ cd ~/zmarbles
+ blockchain@blkchn30:~/zmarbles$
 
 **Step 3:** Stop the Hyperledger Fabric network::
 
- bcuser@ubuntu-bc:~/zmarbles$ docker-compose down
+ blockchain@blkchn30:~/zmarbles$ docker-compose down
  Stopping cli ... done
  Stopping peer1.unitedmarbles.com ... done
  Stopping peer1.marblesinc.com ... done
@@ -529,30 +529,30 @@ Section 3: Clean up
 
 **Step 4:** Remove the chaincode Docker containers::
 
- bcuser@ubuntu-bc:~/zmarbles$ docker ps -a
+ blockchain@blkchn30:~/zmarbles$ docker ps -a
  CONTAINER ID        IMAGE                                     COMMAND                  CREATED             STATUS                          PORTS               NAMES
  5382b92f43dc        dev-peer1.marblesinc.com-marbles-1.0      "chaincode -peer.addr"   2 hours ago         Exited (0) About a minute ago                       dev-peer1.marblesinc.com-marbles-1.0
  5288af292b09        dev-peer1.unitedmarbles.com-marbles-1.0   "chaincode -peer.addr"   2 hours ago         Exited (0) About a minute ago                       dev-peer1.unitedmarbles.com-marbles-1.0
  d3273df8f958        dev-peer0.marblesinc.com-marbles-1.0      "chaincode -peer.addr"   3 hours ago         Exited (0) About a minute ago                       dev-peer0.marblesinc.com-marbles-1.0
  5bf0f5846779        dev-peer0.unitedmarbles.com-marbles-1.0   "chaincode -peer.addr"   16 hours ago        Exited (0) About a minute ago                       dev-peer0.unitedmarbles.com-marbles-1.0
- bcuser@ubuntu-bc:~/zmarbles$ docker rm $(docker ps -aq)
+ blockchain@blkchn30:~/zmarbles$ docker rm $(docker ps -aq)
  5382b92f43dc
  5288af292b09
  d3273df8f958
  5bf0f5846779
- bcuser@ubuntu-bc:~/zmarbles$ docker ps -a
+ blockchain@blkchn30:~/zmarbles$ docker ps -a
  CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
- bcuser@ubuntu-bc:~/zmarbles$
+ blockchain@blkchn30:~/zmarbles$
 
 **Step 5:** Remove the chaincode Docker images::
 
- bcuser@ubuntu-bc:~/zmarbles$ docker images dev-*
+ blockchain@blkchn30:~/zmarbles$ docker images dev-*
  REPOSITORY                                TAG                 IMAGE ID            CREATED             SIZE
  dev-peer1.marblesinc.com-marbles-1.0      latest              e97e06db457f        2 hours ago         188 MB
  dev-peer1.unitedmarbles.com-marbles-1.0   latest              aa60484e5ea1        2 hours ago         188 MB
  dev-peer0.marblesinc.com-marbles-1.0      latest              253bf7a48239        3 hours ago         188 MB
  dev-peer0.unitedmarbles.com-marbles-1.0   latest              7bb0d2122f1f        16 hours ago        188 MB
- bcuser@ubuntu-bc:~/zmarbles$ docker rmi $(docker images -q dev-*)
+ blockchain@blkchn30:~/zmarbles$ docker rmi $(docker images -q dev-*)
  Untagged: dev-peer1.marblesinc.com-marbles-1.0:latest
  Deleted: sha256:e97e06db457f14212c1a7d4dbbd48bfc2c24e747c9507797f68f2c58edbc24c4
  Deleted: sha256:92ee0e6e9a8e2d5dd51fb154dbef609f5de3cb83bdaa50c716a77d60251c48bb
@@ -585,8 +585,8 @@ Section 3: Clean up
  Deleted: sha256:18a3fab4effe6fd8bf8c178a2828ea562f552fb3b89263a14c7ae75efe38c4d6
  Deleted: sha256:b61958b873b299dda8a8028ab33b69cce1ee5b50845ce926e5fac25c2a188e5f
  Deleted: sha256:088dae2d71f92ef089161c82c629deb05d50e7cc7b97585fe0dd3e6a1a30d42d
- bcuser@ubuntu-bc:~/zmarbles$ docker images dev-*
+ blockchain@blkchn30:~/zmarbles$ docker images dev-*
  REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
- bcuser@ubuntu-bc:~/zmarbles$
+ blockchain@blkchn30:~/zmarbles$
 
 **End of lab!**
