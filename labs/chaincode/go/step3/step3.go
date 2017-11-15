@@ -6,14 +6,14 @@ import (
 	pb "github.com/hyperledger/fabric/protos/peer"
 )
 
-type HelloWorld struct {
+type SimpleChaincode struct {
 }
 
-func (t *HelloWorld) Init(stub shim.ChaincodeStubInterface) pb.Response {
+func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response {
 
 	var err error
 
-	fmt.Println("Initializing chaincode HelloWorld")
+	fmt.Println("Initializing chaincode SimpleChaincode")
 	err = stub.PutState("Hello", []byte("World!"))
 	if err != nil {
 		return shim.Error(err.Error())
@@ -22,8 +22,8 @@ func (t *HelloWorld) Init(stub shim.ChaincodeStubInterface) pb.Response {
 	return shim.Success([]byte ("Hello World"))
 }
 
-func (t *HelloWorld) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
-	fmt.Println("Invoking chaincode HelloWorld")
+func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
+	fmt.Println("Invoking chaincode SimpleChaincode")
 	function, args := stub.GetFunctionAndParameters()
 
 	if function == "query" {
@@ -32,7 +32,7 @@ func (t *HelloWorld) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 	return shim.Success(nil)
 }
 
-func (t *HelloWorld) query(stub shim.ChaincodeStubInterface, args []string) pb.Response {
+func (t *SimpleChaincode) query(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 
 	var key string
 
@@ -55,8 +55,8 @@ func (t *HelloWorld) query(stub shim.ChaincodeStubInterface, args []string) pb.R
 
 
 func main() {
-	err:= shim.Start(new(HelloWorld))
+	err:= shim.Start(new(SimpleChaincode))
 	if err!= nil{
-	fmt.Printf("Error starting HelloWorld chaincode: %s", err)
+	fmt.Printf("Error starting SimpleChaincode chaincode: %s", err)
 	}
 }

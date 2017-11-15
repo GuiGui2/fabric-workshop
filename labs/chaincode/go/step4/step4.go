@@ -6,14 +6,14 @@ import (
 	pb "github.com/hyperledger/fabric/protos/peer"
 )
 
-type HelloWorld struct {
+type SimpleChaincode struct {
 }
 
-func (t *HelloWorld) Init(stub shim.ChaincodeStubInterface) pb.Response {
+func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response {
 
 	var err error
 
-	fmt.Println("Initializing chaincode HelloWorld")
+	fmt.Println("Initializing chaincode SimpleChaincode")
 	err = stub.PutState("Hello", []byte("World!"))
 	if err != nil {
 		return shim.Error(err.Error())
@@ -22,8 +22,8 @@ func (t *HelloWorld) Init(stub shim.ChaincodeStubInterface) pb.Response {
 	return shim.Success([]byte ("Hello World"))
 }
 
-func (t *HelloWorld) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
-	fmt.Println("Invoking chaincode HelloWorld")
+func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
+	fmt.Println("Invoking chaincode SimpleChaincode")
 	function, args := stub.GetFunctionAndParameters()
 
 	switch function {
@@ -35,9 +35,9 @@ func (t *HelloWorld) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 	return shim.Error("Invalid invoke function name")
 }
 
-func (t *HelloWorld) query(stub shim.ChaincodeStubInterface, args []string) pb.Response {
+func (t *SimpleChaincode) query(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 
-	fmt.Println("Invoking query function of chaincode HelloWorld")
+	fmt.Println("Invoking query function of chaincode SimpleChaincode")
 	var key string
 
 	if len(args) != 1 {
@@ -57,9 +57,9 @@ func (t *HelloWorld) query(stub shim.ChaincodeStubInterface, args []string) pb.R
 	return shim.Success(keyVal)
 }
 
-func (t *HelloWorld) invoke(stub shim.ChaincodeStubInterface, args []string) pb.Response {
+func (t *SimpleChaincode) invoke(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 
-	fmt.Println("Invoking invoke function of chaincode HelloWorld")
+	fmt.Println("Invoking invoke function of chaincode SimpleChaincode")
 
 	var user, greeting string
 	var err error
@@ -77,8 +77,8 @@ func (t *HelloWorld) invoke(stub shim.ChaincodeStubInterface, args []string) pb.
 }
 
 func main() {
-	err:= shim.Start(new(HelloWorld))
+	err:= shim.Start(new(SimpleChaincode))
 	if err!= nil{
-	fmt.Printf("Error starting HelloWorld chaincode: %s", err)
+	fmt.Printf("Error starting SimpleChaincode chaincode: %s", err)
 	}
 }
