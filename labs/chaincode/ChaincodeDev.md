@@ -165,21 +165,21 @@ import (
 	pb "github.com/hyperledger/fabric/protos/peer"
 )
 
-type HelloWorld struct {
+type SimpleChaincode struct {
 }
 
-func (t *HelloWorld) Init(stub shim.ChaincodeStubInterface) pb.Response {
+func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response {
 	return shim.Success(nil)
 }
 
-func (t *HelloWorld) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
+func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 	return shim.Success(nil)
 }
 
 func main() {
-	err:= shim.Start(new(HelloWorld))
+	err:= shim.Start(new(SimpleChaincode))
 	if err!= nil{
-	fmt.Printf("Error starting HelloWorld chaincode: %s", err)
+	fmt.Printf("Error starting SimpleChaincode chaincode: %s", err)
 	}
 }
 ```
@@ -234,7 +234,7 @@ func main() {
     blockchain@blkchn32:~/gopath/src/chaincode/step1$ ./step1 
     2017-10-20 15:01:31.189 CEST [shim] SetupChaincodeLogging -> INFO 001 Chaincode log level not provided; defaulting to: INFO
     2017-10-20 15:01:31.189 CEST [shim] SetupChaincodeLogging -> INFO 002 Chaincode (build level: ) starting up ...
-    Error starting HelloWorld chaincode: Error chaincode id not providedblockchain@blkchn32:~/gopath/src/chaincode/step1$ 
+    Error starting SimpleChaincode chaincode: Error chaincode id not providedblockchain@blkchn32:~/gopath/src/chaincode/step1$ 
 
 **Step 4:** The chaincode compiles and runs, but does nothing outside of the Fabric. The next step is to instantiate it in the Fabric. In order to do that, we'll use the CLI container which has been started as part of the Fabric. Let's connect to the CLI container:
 
@@ -339,7 +339,7 @@ Suggested if to use the PutState method to store a key of your choice, together 
     blockchain@blkchn30:~/gopath/src/chaincode/step2$ docker ps | grep step2
     79f6458d4414        dev-peer0-step2-1.0-e1816cadb82738bfe84fef246feaac1ced6553b3ee106a7f4dc03f498fe9a6bb   "chaincode -peer.a..."   About a minute ago   Up About a minute                                                     dev-peer0-step2-1.0
     blockchain@blkchn30:~/gopath/src/chaincode/step2$ docker logs 79f6458d4414
-    Initializing chaincode HelloWorld
+    Initializing chaincode SimpleChaincode
     blockchain@blkchn30:~/gopath/src/chaincode/step2$ 
 
 **Note:** You can use the CouchDB database to visualize the effect of the Init()ialization of the ledger.
@@ -374,8 +374,8 @@ Using the example provided, the output is as follows:
 **Step4:** Also check the output of the chaincode container, if you add any debug statements in there. Using the example provided, it looks as follows:
 
     blockchain@blkchn30:~/gopath/src/chaincode/step3$ docker logs cc8a660db67e
-    Initializing chaincode HelloWorld
-    Invoking chaincode HelloWorld
+    Initializing chaincode SimpleChaincode
+    Invoking chaincode SimpleChaincode
     Query Response:{"Name":"Hello","Amount":"World!"}
 
 Section 6: Chaincode development - step 4
