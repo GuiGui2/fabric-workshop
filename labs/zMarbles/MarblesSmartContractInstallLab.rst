@@ -1,9 +1,6 @@
 Section 1 - Overview of Hyperledger Fabric Smart Contract installation lab
 ==========================================================================
-In this lab, you will use the Hyperledger Fabric instance that you installed and tested in the previous lab, “Hyperledger Fabric 
-installation and verification on IBM Z”.
-
-You will use Docker Compose to bring up a Fabric network in which two organizations will participate.  There will be one orderer 
+In this lab, you will use Docker Compose to bring up a Fabric network in which two organizations will participate.  There will be one orderer 
 service for the network, and each organization will use its own certificate authority service and have two peer nodes.  Each peer node 
 will use CouchDB for its ledger store. Each of these entities will run in a separate Docker container.  That makes eleven Docker 
 containers, as follows:
@@ -65,8 +62,8 @@ E.g., observe the following commands which illustrate this::
  
 **Step 2:** Retrieve the zmarbles compressed tarball prepared for this lab with the following command::
 
- bcuser@ubuntu16042:~$ wget https://raw.githubusercontent.com/silliman/fabric-lab-IBM-Z/master/zmarbles.tar.gz
- --2017-10-02 08:40:14--  https://raw.githubusercontent.com/silliman/fabric-lab-IBM-Z/master/zmarbles.tar.gz
+ bcuser@ubuntu16042:~$ wget https://github.com/GuiGui2/fabric-workshop/raw/master/labs/zMarbles/zmarbles.tar.gz
+ --2017-10-02 08:40:14--  https://raw.githubusercontent.com/GuiGui2/fabric-workshop/master/zmarbles.tar.gz
  Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 151.101.200.133
  Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|151.101.200.133|:443... connected.
  HTTP request sent, awaiting response... 200 OK
