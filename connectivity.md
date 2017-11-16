@@ -5,7 +5,8 @@ In order to reach the machine, you first need to install an OpenVPN client and c
 Once connected to the VPN, the details to connect to the virtual machines can be looked up in the table below.
 
 
-| ** VM Name ** | ** Hostname ** | ** IP Address ** |
+| **VM Name** | **Hostname** | **IP Address** |
+|-------------|--------------|----------------|
 | BLKCHN01 | blkchn01 | 10.3.4.158 |
 | BLKCHN02 | blkchn02 | 10.3.4.159 |
 | BLKCHN03 | blkchn03 | 10.3.4.160 |
