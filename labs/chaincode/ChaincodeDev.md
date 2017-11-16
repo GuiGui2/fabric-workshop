@@ -3,7 +3,7 @@
 Section 1: Lab overview
 =======================
 
-In this lab, we will start by exploring the environment to gure out how the machine has been set up for the labs.
+In this lab, we will start by exploring the environment to figure out how the machine has been set up for the labs.
 We will then create a small "Hello World" chaincode, debug, instantiate and test it.
 
 Section 2: Getting started
@@ -236,7 +236,8 @@ func main() {
     2017-10-20 15:01:31.189 CEST [shim] SetupChaincodeLogging -> INFO 002 Chaincode (build level: ) starting up ...
     Error starting SimpleChaincode chaincode: Error chaincode id not providedblockchain@blkchn32:~/gopath/src/chaincode/step1$ 
 
-**Step 4:** The chaincode compiles and runs, but does nothing outside of the Fabric. The next step is to instantiate it in the Fabric. In order to do that, we'll use the CLI container which has been started as part of the Fabric. Let's connect to the CLI container:
+**Step 4:** The chaincode compiles and runs, but does nothing outside of the Fabric. This is what the error message suggests. 
+The next step is to instantiate it in the Fabric. In order to do that, we'll use the CLI container which has been started as part of the Fabric. Let's connect to the CLI container:
 
     blockchain@blkchn32:~/gopath/src/chaincode/step1$ docker exec -it cli /bin/bash
     root@@2b839fc94578:/opt/gopath/src/github.com/hyperledger/fabric/peer# 
