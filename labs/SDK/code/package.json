@@ -1,0 +1,22 @@
+{
+    "name": "sample-apps",
+    "version": "1.0.0",
+    "description": "Hyperledger Fabric Sample Application",
+    "main": "query.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "dependencies": {
+        "fabric-ca-client": "^1.0.2",
+        "fabric-client": "^1.0.2",
+        "grpc": "^1.6.0"
+    },
+    "author": "Guillaume Lasmayous",
+    "license": "Apache-2.0",
+    "keywords": [
+        "Hyperledger",
+        "Fabric",
+        "Car",
+        "Application"
+    ]
+}

@@ -1,0 +1,31 @@
+{
+   "channelID":"labchannel",
+   "chaincodeID":"step4",
+   "keyPEM":"../labconfig/cryptography/BlockChainCoCMSP/admins/msp/keystore/d16fa72f22d7ef34c4f1951cb37f5def8ac43825870cfbcdaefe371b2fdc0c56_sk",
+   "certPEM":"../labconfig/cryptography/BlockChainCoCMSP/admins/msp/signcerts/cert.pem",
+   "keyValueStore":"/tmp/fabric-client-kvs",
+   "mspid":"BlockChainCoCMSP",
+   "msppath":"../labconfig/cryptography/BlockChainCoCMSP/admins/msp//",
+   "caserver":{
+      "ca_url":"http://10.3.4.187:7054"
+   },
+   "orderer":{
+      "orderer_url":"grpc://10.3.4.187:7050"
+   },
+   "peers":[
+      {
+         "peer_url":"grpc://10.3.4.187:7051",
+         "event_url":"grpc://10.3.4.187:7053"
+      },
+      {
+	 "peer_url":"grpc://10.3.4.187:8051",
+         "event_url":"grpc://10.3.4.187:8053"
+      }
+   ],
+   "users":[
+      {
+         "username":"admin",
+         "secret":"adminpw"
+      }
+   ]
+}
