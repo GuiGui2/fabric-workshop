@@ -63,21 +63,21 @@ In our setup, we created a user named blockchain to access this database.
 
 To do so, connect to MariaDB as root, using the password you set in the mysql_secure_installtion step.
 
-[guigui@t460 labs (master %=)]$ mysql -uroot -p
-Enter password: 
-Welcome to the MariaDB monitor.  Commands end with ; or \g.
-Your MariaDB connection id is 39
-Server version: 10.2.10-MariaDB MariaDB Server
+    [guigui@t460 labs (master %=)]$ mysql -uroot -p
+    Enter password: 
+    Welcome to the MariaDB monitor.  Commands end with ; or \g.
+    Your MariaDB connection id is 39
+    Server version: 10.2.10-MariaDB MariaDB Server
+    
+    Copyright (c) 2000, 2017, Oracle, MariaDB Corporation Ab and others.
 
-Copyright (c) 2000, 2017, Oracle, MariaDB Corporation Ab and others.
+    Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
-Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+    MariaDB [(none)]> CREATE USER 'blockchain'@'localhost' IDENTIFIED by 'block4ever';
+    Query OK, 0 rows affected (0.00 sec)
 
-MariaDB [(none)]> CREATE USER 'blockchain'@'localhost' IDENTIFIED by 'block4ever';
-Query OK, 0 rows affected (0.00 sec)
-
-MariaDB [(none)]> GRANT ALL PRIVILEGES ON fabricexplorer.\* to 'blockchain'@'localhost';
-Query OK, 0 rows affected (0.00 sec)
+    MariaDB [(none)]> GRANT ALL PRIVILEGES ON fabricexplorer.\* to 'blockchain'@'localhost';
+    Query OK, 0 rows affected (0.00 sec)
 
 Please note we make sure the blockchain user has full privileges on the fabricexplorer database. We also make sure this user is only allowed to connect from 
 localhost.
@@ -87,7 +87,7 @@ localhost.
 The Blockchain Explorer provides a script to create the required database and database objects for us.
 It is located in the db subdirectory of the blockchain-explorer Git clone.
 
-[guigui@t460 db (master=)]$ mysql -ublockchain -p < fabricexplorer.sql 
-Enter password: 
-[guigui@t460 db (master=)]$ 
+    [guigui@t460 db (master=)]$ mysql -ublockchain -p < fabricexplorer.sql 
+    Enter password: 
+    [guigui@t460 db (master=)]$ 
 
