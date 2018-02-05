@@ -1,4 +1,4 @@
-** Virtual machines details **
+**Virtual machines details**
 
 Our virtual machines are hosted on a LinuxONE server running in our datacenter in Montpellier, France.
 In order to reach the machine, you first need to install an OpenVPN client and configure it to use the certificate provided by your instructor.
