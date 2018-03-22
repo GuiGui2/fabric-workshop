@@ -1,3 +1,4 @@
 # fabric-workshop configuration files
 
-Find here all config files files used to create the lab infrastructure.
+Find here all config files files used to create the lab infrastructure using
+Hyperledger Fabric v1.1
