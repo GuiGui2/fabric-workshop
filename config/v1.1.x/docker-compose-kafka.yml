@@ -1,0 +1,443 @@
+version: '2.0'
+
+services:
+  #  ca:
+  #    image: hyperledger/fabric-ca
+  #    container_name: ca0
+  #    ports:
+  #      - "7054:7054"
+  #    environment:
+  #      - FABRIC_CA_CLIENT_HOME=/etc/hyperledger/fabric-ca-server
+  #    volumes:
+  #      - "./ca:/etc/hyperledger/fabric-ca-server"
+  #    command: sh -c 'fabric-ca-server start -b admin:adminpw'
+
+  zookeeper0:
+    container_name: zookeeper0
+    image: hyperledger/fabric-zookeeper
+    environment:
+      - ZOO_MY_ID=1
+      - ZOO_SERVERS=server.1=zookeeper0:2888:3888 server.2=zookeeper1:2888:3888 server.3=zookeeper2:2888:3888
+    ports:
+      - 2181
+      - 2888
+      - 3888
+
+  zookeeper1:
+    container_name: zookeeper1
+    image: hyperledger/fabric-zookeeper
+    environment:
+      - ZOO_MY_ID=2
+      - ZOO_SERVERS=server.1=zookeeper0:2888:3888 server.2=zookeeper1:2888:3888 server.3=zookeeper2:2888:3888
+    ports:
+      - 2181
+      - 2888
+      - 3888
+
+  zookeeper2:
+    container_name: zookeeper2
+    image: hyperledger/fabric-zookeeper
+    environment:
+      - ZOO_MY_ID=3
+      - ZOO_SERVERS=server.1=zookeeper0:2888:3888 server.2=zookeeper1:2888:3888 server.3=zookeeper2:2888:3888
+    ports:
+      - 2181
+      - 2888
+      - 3888
+
+  kafka0:
+    image: hyperledger/fabric-kafka
+    container_name: kafka0
+    environment:
+      - KAFKA_MESSAGE_MAX_BYTES=103809024
+      - KAFKA_REPLICA_FETCH_MAX_BYTES=103809024
+      - KAFKA_BROKER_ID=0
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181
+      - KAFKA_UNCLEAN_LEADER_ELECTION_ENABLE=false
+      - KAFKA_DEFAULT_REPLICATION_FACTOR=3
+      - KAFKA_MIN_INSYNC_REPLICAS=2
+    ports:
+      - 9092
+    depends_on:
+      - zookeeper0
+      - zookeeper1
+      - zookeeper2
+    links:
+      - zookeeper0:zookeeper0
+      - zookeeper1:zookeeper1
+      - zookeeper2:zookeeper2
+
+  kafka1:
+    image: hyperledger/fabric-kafka
+    container_name: kafka1
+    environment:
+      - KAFKA_MESSAGE_MAX_BYTES=103809024
+      - KAFKA_REPLICA_FETCH_MAX_BYTES=103809024
+      - KAFKA_BROKER_ID=1
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181
+      - KAFKA_UNCLEAN_LEADER_ELECTION_ENABLE=false
+      - KAFKA_DEFAULT_REPLICATION_FACTOR=3
+      - KAFKA_MIN_INSYNC_REPLICAS=2
+    ports:
+      - 9092
+    depends_on:
+      - zookeeper0
+      - zookeeper1
+      - zookeeper2
+    links:
+      - zookeeper0:zookeeper0
+      - zookeeper1:zookeeper1
+      - zookeeper2:zookeeper2
+
+  kafka2:
+    image: hyperledger/fabric-kafka
+    container_name: kafka2
+    environment:
+      - KAFKA_MESSAGE_MAX_BYTES=103809024
+      - KAFKA_REPLICA_FETCH_MAX_BYTES=103809024
+      - KAFKA_BROKER_ID=2
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181
+      - KAFKA_UNCLEAN_LEADER_ELECTION_ENABLE=false
+      - KAFKA_DEFAULT_REPLICATION_FACTOR=3
+      - KAFKA_MIN_INSYNC_REPLICAS=2
+    ports:
+      - 9092
+    depends_on:
+      - zookeeper0
+      - zookeeper1
+      - zookeeper2
+    links:
+      - zookeeper0:zookeeper0
+      - zookeeper1:zookeeper1
+      - zookeeper2:zookeeper2
+
+  kafka3:
+    image: hyperledger/fabric-kafka
+    container_name: kafka3
+    environment:
+      - KAFKA_MESSAGE_MAX_BYTES=103809024
+      - KAFKA_REPLICA_FETCH_MAX_BYTES=103809024
+      - KAFKA_BROKER_ID=3
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181
+      - KAFKA_UNCLEAN_LEADER_ELECTION_ENABLE=false
+      - KAFKA_DEFAULT_REPLICATION_FACTOR=3
+      - KAFKA_MIN_INSYNC_REPLICAS=2
+    ports:
+      - 9092
+    depends_on:
+      - zookeeper0
+      - zookeeper1
+      - zookeeper2
+    links:
+      - zookeeper0:zookeeper0
+      - zookeeper1:zookeeper1
+      - zookeeper2:zookeeper2
+
+  orderer0:  # There  can be multiple orderers
+    image: hyperledger/fabric-orderer
+    container_name: orderer0
+    hostname: orderer0
+    environment:
+        - ORDERER_GENERAL_LOGLEVEL=debug
+        - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+        - ORDERER_GENERAL_GENESISMETHOD=file
+        - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block
+        - ORDERER_GENERAL_LOCALMSPID=OrdererOrgMSP
+        - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: orderer
+    volumes:
+      - ./channel-artifacts/kafka/orderer.genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+      - ./cas/mspconfig/OrdererOrg/msp:/var/hyperledger/orderer/msp
+    ports:
+      - "7050"
+    depends_on:
+      - kafka0
+      - kafka1
+      - kafka2
+      - kafka3
+    links:
+      - kafka0:kafka0
+      - kafka1:kafka1
+      - kafka2:kafka2
+      - kafka3:kafka3
+
+  orderer1:  # There  can be multiple orderers
+    image: hyperledger/fabric-orderer
+    container_name: orderer1
+    hostname: orderer1
+    environment:
+        - ORDERER_GENERAL_LOGLEVEL=debug
+        - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+        - ORDERER_GENERAL_GENESISMETHOD=file
+        - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block
+        - ORDERER_GENERAL_LOCALMSPID=OrdererOrgMSP
+        - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: orderer
+    volumes:
+      - ./channel-artifacts/kafka/orderer.genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+      - ./cas/mspconfig/OrdererOrg/msp:/var/hyperledger/orderer/msp
+    ports:
+      - "7050"
+    depends_on:
+      - kafka0
+      - kafka1
+      - kafka2
+      - kafka3
+      - orderer0
+    links:
+      - kafka0:kafka0
+      - kafka1:kafka1
+      - kafka2:kafka2
+      - kafka3:kafka3
+
+  orderer2:  # There  can be multiple orderers
+    image: hyperledger/fabric-orderer
+    container_name: orderer2
+    hostname: orderer2
+    environment:
+        - ORDERER_GENERAL_LOGLEVEL=debug
+        - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+        - ORDERER_GENERAL_GENESISMETHOD=file
+        - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block
+        - ORDERER_GENERAL_LOCALMSPID=OrdererOrgMSP
+        - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: orderer
+    volumes:
+      - ./channel-artifacts/kafka/orderer.genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+      - ./cas/mspconfig/OrdererOrg/msp:/var/hyperledger/orderer/msp
+    ports:
+      - "7050"
+    depends_on:
+      - kafka0
+      - kafka1
+      - kafka2
+      - kafka3
+      - orderer0
+      - orderer1
+    links:
+      - kafka0:kafka0
+      - kafka1:kafka1
+      - kafka2:kafka2
+      - kafka3:kafka3
+
+  orderer3:  # There  can be multiple orderers
+    image: hyperledger/fabric-orderer
+    container_name: orderer3
+    hostname: orderer3
+    environment:
+        - ORDERER_GENERAL_LOGLEVEL=debug
+        - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+        - ORDERER_GENERAL_GENESISMETHOD=file
+        - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block
+        - ORDERER_GENERAL_LOCALMSPID=OrdererOrgMSP
+        - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: orderer
+    volumes:
+      - ./channel-artifacts/kafka/orderer.genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+      - ./cas/mspconfig/OrdererOrg/msp:/var/hyperledger/orderer/msp
+    ports:
+      - "7050"
+    depends_on:
+      - kafka0
+      - kafka1
+      - kafka2
+      - kafka3
+      - orderer0
+      - orderer1
+      - orderer2
+    links:
+      - kafka0:kafka0
+      - kafka1:kafka1
+      - kafka2:kafka2
+      - kafka3:kafka3
+        
+  peer1.1:
+    image: hyperledger/fabric-peer
+    container_name: peer1.1
+    hostname: peer1.1
+    environment:
+      - CORE_PEER_ID=peer1.1
+      - CORE_PEER_ADDRESSAUTODETECT=true
+      - CORE_LOGGING_LEVEL=DEBUG
+      #- CORE_NEXT=true
+      - CORE_PEER_ENDORSER_ENABLED=true
+      - CORE_PEER_COMMITTER_ENABLED=true
+      - CORE_PEER_PROFILE_ENABLED=false
+      - CORE_PEER_LOCALMSPID=Org1MSP
+      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp
+      - GOPATH=/opt/gopath
+    expose:
+      - "7050"  # Rest
+      - "7051"  # Grpc
+      - "7052"  # Peer CLI
+      - "7053"  # Peer Event
+      - "7054"  # eCAP
+      - "7055"  # eCAA
+      - "7056"  # tCAP
+      - "7057"  # eCAA
+      - "7058"  # tlsCAP
+      - "7059"  # tlsCAA
+    links:
+      - orderer0
+    ports:
+      - 7051:7051
+    depends_on:
+      - orderer0
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: peer node start
+    volumes: # docker.sock is mapped as the default CORE_VM_ENDPOINT
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./cas/mspconfig/Org1/msp/:/etc/hyperledger/fabric/msp
+
+  peer1.2:
+    image: hyperledger/fabric-peer
+    container_name: peer1.2
+    hostname: peer1.2
+    environment:
+      - CORE_PEER_ID=peer1.2
+      - CORE_PEER_ADDRESSAUTODETECT=true
+      - CORE_LOGGING_LEVEL=DEBUG
+      #- CORE_NEXT=true
+      - CORE_PEER_ENDORSER_ENABLED=true
+      - CORE_PEER_COMMITTER_ENABLED=true
+      - CORE_PEER_PROFILE_ENABLED=false
+      - CORE_PEER_LOCALMSPID=Org1MSP
+      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp
+      - GOPATH=/opt/gopath
+    expose:
+      - "7050"  # Rest
+      - "7051"  # Grpc
+      - "7052"  # Peer CLI
+      - "7053"  # Peer Event
+      - "7054"  # eCAP
+      - "7055"  # eCAA
+      - "7056"  # tCAP
+      - "7057"  # eCAA
+      - "7058"  # tlsCAP
+      - "7059"  # tlsCAA
+    links:
+      - orderer0
+    ports:
+      - 7051:7051
+    depends_on:
+      - orderer0
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: peer node start
+    volumes: # docker.sock is mapped as the default CORE_VM_ENDPOINT
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./cas/mspconfig/Org1/msp/:/etc/hyperledger/fabric/msp
+
+  peer2.1:
+    image: hyperledger/fabric-peer
+    container_name: peer2.1
+    hostname: peer2.1
+    environment:
+      - CORE_PEER_ID=peer2.1
+      - CORE_PEER_ADDRESSAUTODETECT=true
+      - CORE_LOGGING_LEVEL=DEBUG
+      #- CORE_NEXT=true
+      - CORE_PEER_ENDORSER_ENABLED=true
+      - CORE_PEER_COMMITTER_ENABLED=true
+      - CORE_PEER_PROFILE_ENABLED=false
+      - CORE_PEER_LOCALMSPID=Org2MSP
+      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp
+      - GOPATH=/opt/gopath
+    expose:
+      - "7050"  # Rest
+      - "7051"  # Grpc
+      - "7052"  # Peer CLI
+      - "7053"  # Peer Event
+      - "7054"  # eCAP
+      - "7055"  # eCAA
+      - "7056"  # tCAP
+      - "7057"  # eCAA
+      - "7058"  # tlsCAP
+      - "7059"  # tlsCAA
+    links:
+      - orderer0
+      - peer1.1
+    depends_on:
+      - orderer0
+      - peer1.1
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: peer node start
+    volumes: # docker.sock is mapped as the default CORE_VM_ENDPOINT
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./cas/mspconfig/Org2/msp:/etc/hyperledger/fabric/msp
+    ports:
+      - 8051:7051
+
+  peer2.2:
+    image: hyperledger/fabric-peer
+    container_name: peer2.2
+    hostname: peer2.2
+    environment:
+      - CORE_PEER_ID=peer2.2
+      - CORE_PEER_ADDRESSAUTODETECT=true
+      - CORE_LOGGING_LEVEL=DEBUG
+      #- CORE_NEXT=true
+      - CORE_PEER_ENDORSER_ENABLED=true
+      - CORE_PEER_COMMITTER_ENABLED=true
+      - CORE_PEER_PROFILE_ENABLED=false
+      - CORE_PEER_LOCALMSPID=Org2MSP
+      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/msp
+      - GOPATH=/opt/gopath
+    expose:
+      - "7050"  # Rest
+      - "7051"  # Grpc
+      - "7052"  # Peer CLI
+      - "7053"  # Peer Event
+      - "7054"  # eCAP
+      - "7055"  # eCAA
+      - "7056"  # tCAP
+      - "7057"  # eCAA
+      - "7058"  # tlsCAP
+      - "7059"  # tlsCAA
+    links:
+      - orderer0
+      - peer2.1
+    depends_on:
+      - orderer0
+      - peer2.1
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: peer node start
+    volumes: # docker.sock is mapped as the default CORE_VM_ENDPOINT
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./cas/mspconfig/Org2/msp:/etc/hyperledger/fabric/msp
+    ports:
+      - 8051:7051
+
+  cli:
+    container_name: cli
+    image: hyperledger/fabric-tools
+    tty: true
+    environment:
+      - GOPATH=/opt/gopath
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_LOGGING_LEVEL=DEBUG
+      # TLS settings
+      - CORE_PEER_TLS_ENABLED=false
+      - CORE_PEER_TLS_CERT_FILE=/var/hyperledger/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/var/hyperledger/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/var/hyperledger/tls/ca.crt
+      - CORE_PEER_LOCALMSPID=Org1MSP
+      - CORE_PEER_MSPCONFIGPATH=/var/hyperledger/msp
+      - CORE_PEER_ADDRESS=peer1.1:7051
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/config
+    command: /bin/bash -c 'sleep 6000000000000000000'
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./cas/mspconfig/:/var/hyperledger
+      - ./channel-artifacts/kafka:/opt/gopath/src/github.com/hyperledger/fabric/config
+        #- /home/blockchain/gopath/src/github.com/hyperledger/fabric/examples/chaincode/go:/opt/gopath/src/chaincode/go
+      - /home/guigui/projects/src/github.com/hyperledger/fabric/examples/chaincode/go:/opt/gopath/src/chaincode/go
+    ports:
+      - '9092'
+    depends_on:
+      - orderer0
+      - peer1.1
+      - peer2.1
