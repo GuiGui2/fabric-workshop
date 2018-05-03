@@ -3,10 +3,12 @@
 This folder holds a set of sample configurations for Hyperledger Fabric v1.1.
 The Fabric is set up as follows: 
  - 1 organization for orderers, called OrdererOrg, which admin is
- adminordererorg. A total of 4 orderers can be started.
+ adminordererorg. A total of 4 orderers can be started, from orderer0 to
+ orderer3.
  - 2 organizations for peers, respectively called Org1 and Org2, which admins
-are, respectively, adminorg1 and adminorg2. Up to 2 peers per orgnization can
-be started.
+ are, respectively, adminorg1 and adminorg2. Up to 2 peers per organization can
+ be started. They are named peer1.1 and peer1.2 for organization 1, peer2.1 and
+ peer2.2 for organization 2.
 
 The \*.yml files are to use with docker-compose to start a Hyperledger Fabric
 1.1.0 (at the time of writing) in various configurations:
