@@ -1,16 +1,38 @@
 version: '2.0'
 
 services:
-  #  ca:
-  #    image: hyperledger/fabric-ca
-  #    container_name: ca0
-  #    ports:
-  #      - "7054:7054"
-  #    environment:
-  #      - FABRIC_CA_CLIENT_HOME=/etc/hyperledger/fabric-ca-server
-  #    volumes:
-  #      - "./ca:/etc/hyperledger/fabric-ca-server"
-  #    command: sh -c 'fabric-ca-server start -b admin:adminpw'
+
+  OrdererOrgCA:
+    image: hyperledger/fabric-ca
+    container_name: OrdererOrgCA
+    ports:
+      - "7054"
+    environment:
+      - FABRIC_CA_CLIENT_HOME=/etc/hyperledger/fabric-ca-server
+    volumes:
+      - "./cas/OrdererOrg:/etc/hyperledger/fabric-ca-server"
+    command: sh -c 'fabric-ca-server start -b admin:adminpw'
+
+  Org1CA:
+    image: hyperledger/fabric-ca
+    container_name: Org1CA
+    ports:
+      - "7054"
+    environment:
+      - FABRIC_CA_CLIENT_HOME=/etc/hyperledger/fabric-ca-server
+    volumes:
+      - "./cas/Org1:/etc/hyperledger/fabric-ca-server"
+    command: sh -c 'fabric-ca-server start -b admin:adminpw'
+
+  Org2CA:
+    image: hyperledger/fabric-ca
+    container_name: Org2CA
+    ports:
+      - "7054"
+    environment:
+      - FABRIC_CA_CLIENT_HOME=/etc/hyperledger/fabric-ca-server
+    volumes:
+      - "./cas/Org2:/etc/hyperledger/fabric-ca-server"
 
   zookeeper0:
     container_name: zookeeper0
