@@ -170,10 +170,11 @@ services:
     command: /bin/bash -c 'sleep 6000000000000000000'
     volumes:
       - /var/run/:/host/var/run/
-      - ./cas/mspconfig/:/var/hyperledger
+      - ./cas/mspconfig/Org1/msp/:/var/hyperledger/msp
       - ./channel-artifacts/solo:/opt/gopath/src/github.com/hyperledger/fabric/config
         #- /home/blockchain/gopath/src/github.com/hyperledger/fabric/examples/chaincode/go:/opt/gopath/src/chaincode/go
-      - /home/guigui/projects/src/github.com/hyperledger/fabric/examples/chaincode/go:/opt/gopath/src/chaincode/go
+        #- /home/guigui/projects/src/github.com/hyperledger/fabric/examples/chaincode/go:/opt/gopath/src/chaincode/go
+      - /home/guigui/projects/wrk/1.1.x/fabric-workshop/labs/chaincode/go/:/opt/gopath/src/chaincode/go
     ports:
       - '9092'
     depends_on:
